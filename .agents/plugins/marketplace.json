@@ -1,0 +1,20 @@
+{
+  "name": "vue-admin-template",
+  "interface": {
+    "displayName": "Vue Admin Template"
+  },
+  "plugins": [
+    {
+      "name": "vue-admin-template-skills",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

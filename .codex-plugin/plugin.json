@@ -1,0 +1,38 @@
+{
+  "name": "vue-admin-template-skills",
+  "version": "1.0.0",
+  "description": "Vue 3 admin template development skills for TypeScript, Vite, Element Plus, Tailwind CSS v4, routing, API contracts, permissions, Mock, testing, and delivery.",
+  "author": {
+    "name": "vue-admin-template"
+  },
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "vue3",
+    "typescript",
+    "vite",
+    "element-plus",
+    "tailwindcss",
+    "admin-template"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Vue Admin Template",
+    "shortDescription": "Vue 管理后台开发技能",
+    "longDescription": "为 Vue 3 管理后台提供从零重构与搭建、页面结构、Vue、TypeScript、Element Plus、Tailwind CSS v4、路由、Pinia、API、Mock、权限、国际化、测试和交付规范；同时支持将按其他标准开发的现有项目分阶段迁移到目标架构。主路径是从零建立目标态，迁移和 A 到 B 重构是次要但完整支持的工作流。技能包独立发布，不依赖目标项目源码或其他技能目录。",
+    "developerName": "vue-admin-template",
+    "category": "Developer Tools",
+    "capabilities": [
+      "从零重构并搭建 Vue 管理后台",
+      "将其他标准的现有项目迁移到目标架构",
+      "处理 API、Mock、会话和权限",
+      "使用 Element Plus 和 Tailwind CSS v4",
+      "执行 TypeScript、测试和交付验证"
+    ],
+    "defaultPrompt": [
+      "按 Vue Admin Template skill 从零搭建一个新页面",
+      "按模板规范实现一个 API、Mock 和权限闭环",
+      "检查当前 Vue 管理后台改动是否符合模板约束"
+    ]
+  }
+}
