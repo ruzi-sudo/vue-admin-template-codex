@@ -2,7 +2,7 @@
 
 本项目携带 14 组技能，共 101 个真实 `SKILL.md` 入口。下面显示的路径相对项目根目录，链接可从当前文件直接打开。
 
-安装插件后先读取唯一项目开发入口 `skills/ui-template/SKILL.md` 及其按任务需要的 references；如果目标项目有自己的 `AGENT.md` 或 `AGENTS.md`，再将其作为额外限制读取。不一次读取全部技能。Element Plus 内部链接失效时以本表为准。
+安装插件后先读取唯一项目开发入口 `skills/ui-template/SKILL.md` 及其按任务需要的 references；如果目标项目有自己的 `AGENT.md` 或 `AGENTS.md`，再将其作为额外限制读取。实现时参考[随 skill 分发的应用模板](skills/ui-template/assets/vue-admin-template/README.md)。不一次读取全部技能。Element Plus 内部链接失效时以本表为准。
 
 此索引仅指向插件内部文件，不要求任何外部 skill 目录存在。`ui-template` 是唯一项目规范入口，其余技能是按需加载的技术能力库。
 

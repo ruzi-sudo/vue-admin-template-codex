@@ -1,5 +1,7 @@
 # 组件实现与页面结构规范
 
+[页面与私有组件的拆分见关联人详情页](../assets/vue-admin-template/src/views/related-person/detail.vue)。
+
 本规范适用于完整项目和独立模板的**新增页面、组件及本次实际改造部分**。源码路径相对当前应用根目录。历史演示存在混合命名、无标题层级、假保存等写法，不代表本规范；不要为了统一风格批量重命名无关文件。
 
 “必须 / 禁止”是实现与评审的验收要求；“默认”允许根据具体业务调整，但需说明结构或交互上的理由。这是开发规范，尚未增加自动强制这些规则的 lint 插件，也不代表现有页面已完成整改。
@@ -219,7 +221,7 @@ const emit = defineEmits<{
 const { t } = useI18n();
 const keyword = computed({
   get: () => props.keyword,
-  set: (value: string) => emit("update:keyword", value)
+  set: (value: string) => emit("update:keyword", value),
 });
 
 function handleSubmit() {

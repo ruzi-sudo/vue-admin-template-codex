@@ -13,13 +13,15 @@ Treat the repository as a self-contained Vue 3 application. The template guide i
 
 **TypeScript is required for all code this plugin writes, edits, or suggests.** Use `.ts` for modules, tests, mocks, and scripted configuration, and `.tsx` for JSX. In Vue components, use `<script setup lang="ts">` or `lang="ts"` on an existing standard script block (`lang="tsx"` for JSX). Apply the same rule to code samples in replies and documentation, including examples adapted from companion skills. When editing legacy JavaScript, migrate the affected module or script block and update its references within the same change.
 
-**Target project root:** Only `docs/`, `scripts/`, and `tmp/` may be created as new top-level directories. Inspect the root, including hidden directories, before writing. Reuse existing directories for their established purposes. Apply the allowlist to every operation, including scaffolding, installing, building, and running companion tools. If an operation requires a missing top-level directory outside the list, reuse a suitable existing path or report the conflict before running it.
+**Bundled application:** Use [the starter](assets/vue-admin-template/README.md) as the implementation baseline. For a new app, copy the contents of `assets/vue-admin-template/` (including dotfiles and the lockfile) into the empty target root. For an existing app, compare the affected layer and port only the needed changes. Resolve paths such as `src/` from the application root.
+
+**After scaffolding:** Only `docs/`, `scripts/`, and `tmp/` may be created as new top-level directories. Inspect the root, including hidden directories, before writing. Reuse existing directories for their established purposes. Apply the allowlist to every operation, including scaffolding, installing, building, and running companion tools. If an operation requires a missing top-level directory outside the list, reuse a suitable existing path or report the conflict before running it.
 
 Use this sequence for every change:
 
 1. Read [template guide](references/template-guide.md) to establish the project boundary, file locations, and implementation order.
 2. Read [project rules](references/project-rules.md) and identify the affected layer.
-3. Inspect the nearest existing page, component, store, API, route, Mock handler, or test and reuse its established pattern.
+3. Compare the corresponding file in the bundled starter, then inspect the nearest existing page, component, store, API, route, Mock handler, or test and reuse its established pattern.
 4. Load only the companion skills needed for the task from the routing table below.
 5. State the structure and data-flow decision before editing when the change crosses layers.
 6. Implement the smallest coherent change, including localized copy and failure states.

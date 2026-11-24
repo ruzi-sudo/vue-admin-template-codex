@@ -1,5 +1,7 @@
 # Mock 目录与路由结构规范
 
+[用户模块的开发 Mock](../assets/vue-admin-template/mock/user/route.fake.ts)。
+
 Mock 按 `src/api/<model>/` 的接口模块组织；模块名与 API 保持一致。这里的路由指 HTTP 接口，不按前端页面 URL 分组，也不把不同模块的接口堆进同一个文件。
 
 ## 1. 目录与对应关系
@@ -74,9 +76,9 @@ export default defineFakeRoute([
     response: (): AsyncRoutesResult => ({
       code: 0,
       message: "操作成功",
-      data: createAsyncRoutes()
-    })
-  }
+      data: createAsyncRoutes(),
+    }),
+  },
 ]);
 ```
 

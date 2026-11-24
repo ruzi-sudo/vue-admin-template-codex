@@ -35,39 +35,13 @@
 
 ### 1.1 创建应用和包管理配置
 
-先盘点目标根目录，包括隐藏目录。只允许按需新增 `docs/`、`scripts/`、`tmp/`。空项目若缺少 `src/` 等必要目录，先说明缺少的路径，暂停依赖这些路径的搭建步骤。安装依赖前也要确认命令可以复用现有目录。
+空项目直接复制[内置模板](../assets/vue-admin-template/README.md)的内容到目标根目录，包括隐藏配置、`pnpm-lock.yaml` 和 `LICENSE`。在目标目录执行 `pnpm install --frozen-lockfile` 和 `pnpm dev`。依赖版本、开发命令和构建配置以模板的 [package.json](../assets/vue-admin-template/package.json) 为准。
 
-确认 `package.json` 使用 ESM、声明 Node/pnpm 引擎，并补齐以下脚本：
-
-```json
-{
-  "type": "module",
-  "scripts": {
-    "dev": "vite --port 4175",
-    "build": "vue-tsc --noEmit --skipLibCheck && vite build",
-    "preview": "vite preview --port 4175",
-    "typecheck": "vue-tsc --noEmit --skipLibCheck",
-    "lint": "eslint src mock tests vite.config.ts vitest.config.ts --max-warnings 0",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "test": "vitest run",
-    "test:watch": "vitest"
-  }
-}
-```
-
-核心依赖至少包括：
-
-```bash
-pnpm add vue vue-router pinia axios element-plus @vueuse/core vue-i18n
-pnpm add -D typescript vite vue-tsc @vitejs/plugin-vue tailwindcss @tailwindcss/vite eslint prettier vitest
-```
-
-要复刻本模板的现有能力，再按实际需求加入 `@pureadmin/table`、`@pureadmin/utils`、`@iconify/vue`、`vue-tippy`、`vite-plugin-fake-server`、`sass` 和图标包。不要为了空目录初始化一次性加入无关 UI 框架。
+已有项目按本次需求逐层对照，保留现有业务代码和配置，按第 9 节迁移。初始化后的增量目录规则见[项目规则](project-rules.md)。
 
 ### 1.2 先建立目录骨架
 
-下图用于定位已有项目中的文件。只在已有一级目录下按需补齐对应结构，迁移阶段也遵循第 1.1 节的根目录白名单。
+下图用于定位已有项目中的文件。带注释的扩展目录在首次新增业务时创建。
 
 ```text
 .
@@ -84,9 +58,9 @@ pnpm add -D typescript vite vue-tsc @vitejs/plugin-vue tailwindcss @tailwindcss/
 │  ├─ plugins/
 │  ├─ router/
 │  │  ├─ modules/
-│  │  ├─ dynamic/
+│  │  ├─ dynamic/            # 首次新增业务时创建
 │  │  ├─ index.ts
-│  │  └─ types.ts
+│  │  └─ utils.ts
 │  ├─ store/
 │  │  ├─ index.ts
 │  │  └─ modules/
@@ -97,7 +71,8 @@ pnpm add -D typescript vite vue-tsc @vitejs/plugin-vue tailwindcss @tailwindcss/
 │  ├─ utils/
 │  ├─ views/
 │  │  ├─ login/
-│  │  ├─ home/
+│  │  ├─ welcome/
+│  │  ├─ related-person/
 │  │  └─ error/
 │  ├─ App.vue
 │  └─ main.ts
@@ -112,8 +87,8 @@ pnpm add -D typescript vite vue-tsc @vitejs/plugin-vue tailwindcss @tailwindcss/
 ├─ vite.config.ts
 ├─ vitest.config.ts
 ├─ tsconfig.json
-├─ eslint.config.ts
-├─ .prettierrc.ts
+├─ eslint.config.js
+├─ .prettierrc.js
 ├─ package.json
 └─ pnpm-lock.yaml
 ```
@@ -128,8 +103,8 @@ pnpm add -D typescript vite vue-tsc @vitejs/plugin-vue tailwindcss @tailwindcss/
 | ------------------ | ------------------------------------------------------------------- | --------------------------------------------------- |
 | `vite.config.ts`   | Vue、Vue JSX（若使用）、Tailwind v4、路径别名、开发代理和 Mock 插件 | `@/` 指向 `src`；开发 `/api` 代理和 Mock 开关可配置 |
 | `tsconfig.json`    | `src`、`mock`、`tests`、根类型声明的类型范围和路径别名              | `vue-tsc --noEmit` 能发现源码错误                   |
-| `eslint.config.ts` | Vue、TypeScript、Tailwind 和格式规则                                | lint 覆盖 `src`、`mock`、`tests` 和配置文件         |
-| `.prettierrc.ts`   | 项目统一格式                                                        | `pnpm format:check` 可执行                          |
+| `eslint.config.js` | Vue、TypeScript、Tailwind 和格式规则                                | lint 覆盖 `src`、`mock`、`tests` 和配置文件         |
+| `.prettierrc.js`   | 项目统一格式                                                        | `pnpm format:check` 可执行                          |
 | `vitest.config.ts` | 测试环境、别名、setup 文件                                          | 测试可以导入 `@/` 并运行 Node/DOM 约定              |
 | `.env.development` | `VITE_API_BASE_URL`、`VITE_PUBLIC_PATH`、`VITE_USE_MOCK`、代理目标  | 开发配置可切换真实 API 与 Mock                      |
 | `.env.production`  | 生产 API 和公共路径                                                 | 不启用开发 Mock，不存放密钥                         |
@@ -140,14 +115,7 @@ pnpm add -D typescript vite vue-tsc @vitejs/plugin-vue tailwindcss @tailwindcss/
 
 ### 3.1 `src/main.ts`
 
-启动文件按以下顺序组织：
-
-1. `createApp(App)`。
-2. 导入 reset、公共样式、Tailwind 和 Element Plus 样式；保留项目现有顺序。
-3. 初始化本地化、store、路由和运行时配置。
-4. 注册 `Auth`、`Perms`、图标和全局指令。
-5. 注册 Element Plus、表格、tooltip 等公共插件。
-6. 等待路由准备完成后 `app.mount('#app')`。
+对照 [main.ts](../assets/vue-admin-template/src/main.ts) 保留启动顺序。入口导入全局样式，创建应用并注册指令、权限组件、图标和 VueTippy。平台配置加载后初始化 locale 和 Pinia，安装路由并等待 `router.isReady()`，再注入存储、安装 i18n、Element Plus 和表格插件，最后挂载应用。
 
 不要在页面组件中重复注册全局插件，也不要在 `main.ts` 中写业务请求。
 

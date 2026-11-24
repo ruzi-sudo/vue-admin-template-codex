@@ -5,3 +5,8 @@ coverage/
 .env
 .env.*
 !.env.example
+
+# Public Vite defaults distributed with the starter.
+!/skills/ui-template/assets/vue-admin-template/.env
+!/skills/ui-template/assets/vue-admin-template/.env.development
+!/skills/ui-template/assets/vue-admin-template/.env.production

@@ -1,5 +1,7 @@
 # API 类型与请求实现规范
 
+[登录与刷新请求的实现](../assets/vue-admin-template/src/api/user/route.ts)。
+
 本规范适用于本模板的全部业务接口。新增、修改 API 时必须遵守；这是代码组织与评审约束，尚未新增专门的 lint 强制规则。
 
 ## 1. 目录结构

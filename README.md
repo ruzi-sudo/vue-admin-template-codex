@@ -11,6 +11,9 @@
 ├─ .agents/plugins/marketplace.json
 ├─ skills/
 │  ├─ ui-template/
+│  │  ├─ SKILL.md
+│  │  ├─ references/
+│  │  └─ assets/vue-admin-template/
 │  ├─ element-plus-skills/
 │  ├─ tailwind-design-system/
 │  ├─ typescript-best-practices/
@@ -22,7 +25,7 @@
 └─ LICENSE
 ```
 
-`ui-template` 是项目规范入口。它的主路径是从空目录、半成品或不符合目标约束的项目重构出目标架构；次路径是把按其他标准开发的现有项目迁移到该架构。安装插件后，先读取 `skills/ui-template/SKILL.md`，再按任务加载其他 skill。所有相对链接都指向本插件内的 `skills/` 或 reference 文件。
+`ui-template` 是项目规范入口。它的主路径是从空目录、半成品或不符合目标约束的项目重构出目标架构；次路径是把按其他标准开发的现有项目迁移到该架构。安装插件后，先读取 `skills/ui-template/SKILL.md`，再按任务加载其他 skill。新建项目时复制[内置 Vue 后台模板](skills/ui-template/assets/vue-admin-template/README.md)的内容到目标根目录。已有项目可以按任务对照其中的页面、路由、API、Mock 和测试。
 
 ## Publish to GitHub
 
@@ -87,7 +90,7 @@ GitHub 仓库可以让 Agent **发现并安装**这个插件，但出于权限�
 请从 ruzi-sudo/vue-admin-template-codex 的 main 分支添加 Codex marketplace，检查可用插件，并安装 vue-admin-template-skills。安装后开始新会话，再按 Vue Admin Template skill 工作。
 ```
 
-本插件只提供技能指令，不会自动修改目标 Vue 项目、安装 npm 依赖或执行 hooks；项目依赖仍由 Agent 根据任务和用户确认处理。
+本插件提供技能指令和可独立复制的应用模板，不会自动修改目标 Vue 项目、安装 npm 依赖或执行 hooks；项目依赖仍由 Agent 根据任务和用户确认处理。
 
 ## License
 

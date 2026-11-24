@@ -1,5 +1,7 @@
 # 路由制定与 RBAC 权限实现引导
 
+[动态菜单加载、缓存和路由注册的实现](../assets/vue-admin-template/src/router/utils.ts)。
+
 适用于独立轻量模板，所有源码路径相对本模板项目根（包含 package.json 的目录）；复制为新项目后不依赖父仓库文档。RBAC 指基于角色的访问控制：后端决定用户角色与操作权限，前端用现有路由、菜单和按钮机制呈现授权结果。本指南说明现有实现与接入步骤，不代表已新增订单业务或后端权限服务。
 
 ## 1. 先制定路由与权限表
@@ -37,7 +39,7 @@ export default [
     redirect: "/orders/list",
     meta: {
       title: "menus.orders",
-      rank: 20
+      rank: 20,
     },
     children: [
       {
@@ -47,8 +49,8 @@ export default [
         meta: {
           title: "menus.orderList",
           roles: ["admin", "editor"],
-          keepAlive: true
-        }
+          keepAlive: true,
+        },
       },
       {
         path: "/orders/detail/:id",
@@ -58,11 +60,11 @@ export default [
           title: "menus.orderDetail",
           roles: ["admin", "editor"],
           showLink: false,
-          activePath: "/orders/list"
-        }
-      }
-    ]
-  }
+          activePath: "/orders/list",
+        },
+      },
+    ],
+  },
 ] satisfies DynamicRouteDto[];
 ```
 

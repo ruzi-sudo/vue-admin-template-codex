@@ -46,7 +46,8 @@
       "name": "ui-template",
       "path": "skills/ui-template",
       "entryCount": 1,
-      "source": "template-local"
+      "source": "template-local",
+      "templatePath": "skills/ui-template/assets/vue-admin-template"
     },
     {
       "name": "vite",
