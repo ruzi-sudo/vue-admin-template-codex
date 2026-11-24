@@ -35,14 +35,9 @@
 
 ### 1.1 创建应用和包管理配置
 
-在目标目录执行：
+先盘点目标根目录，包括隐藏目录。只允许按需新增 `docs/`、`scripts/`、`tmp/`。空项目若缺少 `src/` 等必要目录，先说明缺少的路径，暂停依赖这些路径的搭建步骤。安装依赖前也要确认命令可以复用现有目录。
 
-```bash
-pnpm create vite@latest . --template vue-ts
-pnpm install
-```
-
-然后确认 `package.json` 使用 ESM、声明 Node/pnpm 引擎，并补齐以下脚本：
+确认 `package.json` 使用 ESM、声明 Node/pnpm 引擎，并补齐以下脚本：
 
 ```json
 {
@@ -72,7 +67,7 @@ pnpm add -D typescript vite vue-tsc @vitejs/plugin-vue tailwindcss @tailwindcss/
 
 ### 1.2 先建立目录骨架
 
-在实现页面前先创建以下最小结构；没有需求的业务目录可以先保留空目录说明文件：
+下图用于定位已有项目中的文件。只在已有一级目录下按需补齐对应结构，迁移阶段也遵循第 1.1 节的根目录白名单。
 
 ```text
 .
@@ -117,8 +112,8 @@ pnpm add -D typescript vite vue-tsc @vitejs/plugin-vue tailwindcss @tailwindcss/
 ├─ vite.config.ts
 ├─ vitest.config.ts
 ├─ tsconfig.json
-├─ eslint.config.js
-├─ .prettierrc.js
+├─ eslint.config.ts
+├─ .prettierrc.ts
 ├─ package.json
 └─ pnpm-lock.yaml
 ```
@@ -133,8 +128,8 @@ pnpm add -D typescript vite vue-tsc @vitejs/plugin-vue tailwindcss @tailwindcss/
 | ------------------ | ------------------------------------------------------------------- | --------------------------------------------------- |
 | `vite.config.ts`   | Vue、Vue JSX（若使用）、Tailwind v4、路径别名、开发代理和 Mock 插件 | `@/` 指向 `src`；开发 `/api` 代理和 Mock 开关可配置 |
 | `tsconfig.json`    | `src`、`mock`、`tests`、根类型声明的类型范围和路径别名              | `vue-tsc --noEmit` 能发现源码错误                   |
-| `eslint.config.js` | Vue、TypeScript、Tailwind 和格式规则                                | lint 覆盖 `src`、`mock`、`tests` 和配置文件         |
-| `.prettierrc.js`   | 项目统一格式                                                        | `pnpm format:check` 可执行                          |
+| `eslint.config.ts` | Vue、TypeScript、Tailwind 和格式规则                                | lint 覆盖 `src`、`mock`、`tests` 和配置文件         |
+| `.prettierrc.ts`   | 项目统一格式                                                        | `pnpm format:check` 可执行                          |
 | `vitest.config.ts` | 测试环境、别名、setup 文件                                          | 测试可以导入 `@/` 并运行 Node/DOM 约定              |
 | `.env.development` | `VITE_API_BASE_URL`、`VITE_PUBLIC_PATH`、`VITE_USE_MOCK`、代理目标  | 开发配置可切换真实 API 与 Mock                      |
 | `.env.production`  | 生产 API 和公共路径                                                 | 不启用开发 Mock，不存放密钥                         |

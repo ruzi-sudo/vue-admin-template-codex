@@ -11,6 +11,10 @@ This skill is the authoritative development guide for the standalone template. L
 
 Treat the repository as a self-contained Vue 3 application. The template guide is primarily a from-zero reconstruction guide: when the repository is empty, incomplete, or built to another standard, establish the target architecture before importing business code. Existing-project refactoring and A-to-B migration are supported as a secondary workflow, using explicit adapters, staged slices, compatibility checkpoints, and rollback points. Establish the current project facts from `package.json`, the relevant source files, and the local skill references before editing. The source and configuration win when a document is stale. Keep changes scoped to the requested behavior and preserve existing public paths and contracts unless migration is part of the task.
 
+**TypeScript is required for all code this plugin writes, edits, or suggests.** Use `.ts` for modules, tests, mocks, and scripted configuration, and `.tsx` for JSX. In Vue components, use `<script setup lang="ts">` or `lang="ts"` on an existing standard script block (`lang="tsx"` for JSX). Apply the same rule to code samples in replies and documentation, including examples adapted from companion skills. When editing legacy JavaScript, migrate the affected module or script block and update its references within the same change.
+
+**Target project root:** Only `docs/`, `scripts/`, and `tmp/` may be created as new top-level directories. Inspect the root, including hidden directories, before writing. Reuse existing directories for their established purposes. Apply the allowlist to every operation, including scaffolding, installing, building, and running companion tools. If an operation requires a missing top-level directory outside the list, reuse a suitable existing path or report the conflict before running it.
+
 Use this sequence for every change:
 
 1. Read [template guide](references/template-guide.md) to establish the project boundary, file locations, and implementation order.
@@ -68,6 +72,7 @@ Element Plus component skills are nested under `../element-plus-skills/component
 
 Before completion, verify the affected behavior rather than only reading the diff:
 
+- Compare the top-level directories with the initial inventory, including hidden and ignored directories. Every addition must be named `docs`, `scripts`, or `tmp`.
 - TypeScript/Vue change: `pnpm typecheck`, `pnpm lint`, and `pnpm format:check` as applicable.
 - HTTP, auth, Mock, or covered behavior: `pnpm test`, with a focused regression test for a new failure branch when warranted.
 - Route, dependency, Vite, plugin, or entry change: `pnpm build`.
